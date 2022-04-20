@@ -2,7 +2,7 @@
 SQLyog v10.2 
 MySQL - 5.1.32-community : Database - db_mos
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -21,17 +21,17 @@ USE `db_mos`;
 DROP TABLE IF EXISTS `tb_business`;
 
 CREATE TABLE `tb_business` (
-  `businessID` int(11) NOT NULL AUTO_INCREMENT COMMENT '商家ID',
-  `businessName` varchar(30) DEFAULT NULL COMMENT '商家名称',
-  `sendOutPrice` double DEFAULT NULL COMMENT '起送价钱',
-  `distributionPrice` double DEFAULT NULL COMMENT '配送价钱',
-  `shopHours` datetime DEFAULT NULL COMMENT '营业时间',
-  `businessAddress` varchar(100) DEFAULT NULL COMMENT '商家地址',
-  `businessDepict` varchar(100) DEFAULT NULL COMMENT '商家简介',
-  `notice` varchar(500) DEFAULT NULL COMMENT '公告与活动',
-  `businessScenery` varchar(100) DEFAULT NULL COMMENT '商家实景',
-  `logo` varchar(100) DEFAULT NULL COMMENT '商家logo',
-  `categoryID` int(11) DEFAULT NULL COMMENT '经营类别ID，外键',
+  `businessID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'business_ID',
+  `businessName` varchar(30) DEFAULT NULL COMMENT 'business_Name',
+  `sendOutPrice` double DEFAULT NULL COMMENT 'sendOut_Price',
+  `distributionPrice` double DEFAULT NULL COMMENT 'distribution_Price',
+  `shopHours` datetime DEFAULT NULL COMMENT 'shop_Hours',
+  `businessAddress` varchar(100) DEFAULT NULL COMMENT 'business_Address',
+  `businessDepict` varchar(100) DEFAULT NULL COMMENT 'business_Depict',
+  `notice` varchar(500) DEFAULT NULL COMMENT 'notice',
+  `businessScenery` varchar(100) DEFAULT NULL COMMENT 'business_Scenery',
+  `logo` varchar(100) DEFAULT NULL COMMENT 'logo',
+  `categoryID` int(11) DEFAULT NULL COMMENT 'category_ID，foreign key',
   PRIMARY KEY (`businessID`),
   KEY `b_fk_1` (`categoryID`),
   CONSTRAINT `b_fk_1` FOREIGN KEY (`categoryID`) REFERENCES `tb_category` (`categoryID`)
@@ -46,26 +46,26 @@ insert  into `tb_business`(`businessID`,`businessName`,`sendOutPrice`,`distribut
 DROP TABLE IF EXISTS `tb_category`;
 
 CREATE TABLE `tb_category` (
-  `categoryID` int(11) NOT NULL AUTO_INCREMENT COMMENT '经营类别ID',
-  `categoryName` varchar(30) DEFAULT NULL COMMENT '经营类别名称',
+  `categoryID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'category_ID',
+  `categoryName` varchar(30) DEFAULT NULL COMMENT 'category_Name',
   PRIMARY KEY (`categoryID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_category` */
 
-insert  into `tb_category`(`categoryID`,`categoryName`) values (1,'甜品饮品'),(2,'快餐便当'),(3,'特色菜系'),(4,'异国料理'),(5,'小吃夜宵'),(6,'果蔬生鲜'),(7,'鲜花蛋糕'),(8,'商店超市');
+insert  into `tb_category`(`categoryID`,`categoryName`) values (1,'dessert drink'),(2,'fast food bento'),(3,'specialties'),(4,'Exotic cuisine'),(5,'snack supper'),(6,'Fresh fruits and vegetables'),(7,'flower cake'),(8,'store supermarket');
 
 /*Table structure for table `tb_members` */
 
 DROP TABLE IF EXISTS `tb_members`;
 
 CREATE TABLE `tb_members` (
-  `memberID` varchar(10) NOT NULL COMMENT '会员账号',
-  `password` varchar(10) DEFAULT NULL COMMENT '会员密码',
-  `rank` varchar(10) DEFAULT NULL COMMENT '会员等级',
-  `credit` int(11) DEFAULT NULL COMMENT '会员积分',
-  `phone` varchar(20) DEFAULT NULL COMMENT '会员手机号',
-  `imgPath` varchar(100) DEFAULT NULL COMMENT '会员皮肤',
+  `memberID` varchar(10) NOT NULL COMMENT 'member_ID',
+  `password` varchar(10) DEFAULT NULL COMMENT 'password',
+  `rank` varchar(10) DEFAULT NULL COMMENT 'rank',
+  `credit` int(11) DEFAULT NULL COMMENT 'credit',
+  `phone` varchar(20) DEFAULT NULL COMMENT 'phone',
+  `imgPath` varchar(100) DEFAULT NULL COMMENT 'imgPath',
   PRIMARY KEY (`memberID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -78,12 +78,12 @@ insert  into `tb_members`(`memberID`,`password`,`rank`,`credit`,`phone`,`imgPath
 DROP TABLE IF EXISTS `tb_menus`;
 
 CREATE TABLE `tb_menus` (
-  `menusID` int(11) NOT NULL AUTO_INCREMENT COMMENT '餐品IID',
-  `menusName` varchar(30) DEFAULT NULL COMMENT '餐品名称',
-  `menusPrice` double DEFAULT NULL COMMENT '餐品价钱',
-  `menusDepict` varchar(100) DEFAULT NULL COMMENT '餐品简述',
-  `menusImagePath` varchar(100) DEFAULT NULL COMMENT '餐品图片路径',
-  `businessID` int(11) DEFAULT NULL COMMENT '商家ID，外键',
+  `menusID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'menusID',
+  `menusName` varchar(30) DEFAULT NULL COMMENT 'menusName',
+  `menusPrice` double DEFAULT NULL COMMENT 'menusPrice',
+  `menusDepict` varchar(100) DEFAULT NULL COMMENT 'menusDepict',
+  `menusImagePath` varchar(100) DEFAULT NULL COMMENT 'menusImagePath',
+  `businessID` int(11) DEFAULT NULL COMMENT 'businessID，foreign key',
   PRIMARY KEY (`menusID`),
   KEY `m_fk_1` (`businessID`),
   CONSTRAINT `m_fk_1` FOREIGN KEY (`businessID`) REFERENCES `tb_business` (`businessID`)
@@ -91,20 +91,20 @@ CREATE TABLE `tb_menus` (
 
 /*Data for the table `tb_menus` */
 
-insert  into `tb_menus`(`menusID`,`menusName`,`menusPrice`,`menusDepict`,`menusImagePath`,`businessID`) values (1,'蜂蜜绿茶',10,'蜂蜜绿茶，农家纯正蜂蜜','/images/img1.png',1),(2,'蜂蜜绿茶',10,'蜂蜜绿茶，农家纯正蜂蜜','/images/img1.png',1);
+insert  into `tb_menus`(`menusID`,`menusName`,`menusPrice`,`menusDepict`,`menusImagePath`,`businessID`) values (1,'Honey Green Tea',10,'Honey Green Tea，Farmhouse pure honey','/images/img1.png',1),(2,'Honey Green Tea',10,'Honey Green Tea，Farmhouse pure honey','/images/img1.png',1);
 
 /*Table structure for table `tb_order` */
 
 DROP TABLE IF EXISTS `tb_order`;
 
 CREATE TABLE `tb_order` (
-  `orderID` varchar(10) NOT NULL COMMENT '订单编号',
-  `commitTime` datetime DEFAULT NULL COMMENT '订单提交时间',
-  `amount` int(11) DEFAULT NULL COMMENT '餐品数量',
-  `totalPrice` double DEFAULT NULL COMMENT '总价钱',
-  `status` varchar(10) DEFAULT NULL COMMENT '订单状态',
-  `menusID` int(11) DEFAULT NULL COMMENT '餐品ID，外键',
-  `memberID` varchar(10) DEFAULT NULL COMMENT '会员ID，外键',
+  `orderID` varchar(10) NOT NULL COMMENT 'orderID',
+  `commitTime` datetime DEFAULT NULL COMMENT 'commitTime',
+  `amount` int(11) DEFAULT NULL COMMENT 'amount',
+  `totalPrice` double DEFAULT NULL COMMENT 'totalPrice',
+  `status` varchar(10) DEFAULT NULL COMMENT 'status',
+  `menusID` int(11) DEFAULT NULL COMMENT 'menusID，foreign key',
+  `memberID` varchar(10) DEFAULT NULL COMMENT 'memberID，foreign key',
   PRIMARY KEY (`orderID`),
   KEY `o_fk_1` (`menusID`),
   KEY `o_fk_2` (`memberID`),
